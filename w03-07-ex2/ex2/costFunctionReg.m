@@ -17,11 +17,17 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+n = length(theta)
+h  = sigmoid(X * theta);                              % h = vector m x 1     
 
+regJ = lambda/(2*m) * sum(theta(2:n).^2);                 % regJ = scalar
 
+J = 1 / m * ((-y' * log(h)) - (1 - y)' * log(1 - h));  # J = scalar
+J +=  + regJ;
 
-
-
+regGrad = lambda/m * [0; theta(2:n)];     #  cria vetor com todas posições em 1 
+grad = (1/m * ((h - y)' * X));            #  grad = matrix 1 X 28
+grad +=  regGrad';
 % =============================================================
 
 end
